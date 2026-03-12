@@ -7,7 +7,7 @@ library(writexl)
 nrens <- read_excel("nrens.xlsx")
 worldcities <- read_excel("worldcities.xlsx")
 
-# Para cada pais em worldcities, pegar um representante (capital ou cidade mais populosa)
+# Para cada pais em worldcities, pegar um representante (capital ou cidade mais populosa) # nolint
 wc_countries <- worldcities %>%
   mutate(is_capital = ifelse(!is.na(capital) & capital == "primary", 1, 0)) %>%
   arrange(desc(is_capital), desc(population)) %>%
@@ -27,9 +27,9 @@ correcoes <- c(
 nrens_unicos <- unique(nrens$Country)
 wc_lista <- wc_countries$country
 
-# Para cada pais em nrens, encontrar o melhor match em worldcities com similaridade >= 90%
+# Para cada pais em nrens, encontrar o melhor match em worldcities com similaridade >= 90% # nolint
 resultado <- data.frame(Country = nrens_unicos, matched_country = NA_character_,
-                        lat = NA_real_, lng = NA_real_, stringsAsFactors = FALSE)
+                        lat = NA_real_, lng = NA_real_, stringsAsFactors = FALSE) # nolint
 
 for (i in seq_along(nrens_unicos)) {
   pais_busca <- nrens_unicos[i]
@@ -53,7 +53,7 @@ for (i in seq_along(nrens_unicos)) {
 # Mostrar correspondencias encontradas e nao encontradas
 cat("=== Correspondencias encontradas ===\n")
 encontrados <- resultado %>% filter(!is.na(matched_country))
-print(as.data.frame(encontrados[, c("Country", "matched_country")]), row.names = FALSE)
+print(as.data.frame(encontrados[, c("Country", "matched_country")]), row.names = FALSE) # nolint: line_length_linter.
 
 cat("\n=== Paises SEM correspondencia (similaridade < 90%) ===\n")
 nao_encontrados <- resultado %>% filter(is.na(matched_country))
